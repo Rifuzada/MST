@@ -162,8 +162,9 @@ def get_champions_name(_id):
     221: "Zeri",
     888: "Renata Glasc",
     895: "Nilah",
-    897 : "K'sante"
+    897 : "K'sante",
+    950 : "Naafiri",
+    902 : "Milio"
     }
     
     return all_champion_id.get(_id)
-    
