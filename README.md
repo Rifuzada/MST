@@ -1,4 +1,5 @@
 # ✨ MST✨
+- [Master Search Tool] -
  - Pesquisador de maestrias com base no Nickname e regiao do league of legends
  - Lembre-se de baixar o id_champ.py para que o MST.py funcione.
 
