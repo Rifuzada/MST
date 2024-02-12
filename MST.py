@@ -36,6 +36,8 @@ def region_check():
         
 def nick_check():
     a = str(nick_entry.get())
+    a = a.lower()
+    p = '#'
     if len(a) <= 16:
         info["text"] = "Para pesquisar novamente feche a janela que acabou de abrir e pesquise novamente."
         try:
@@ -53,6 +55,10 @@ def pegar_id():
         nick = "%s" % nick_entry.get()
         nick = nick.upper()
         nick = nick.replace('#', "/")
+        p = '/'
+        if p not in nick:
+            print("O nick escolhido está incorreto.")
+            info['text']= "O nick escolhido está incorreto.\nPor favor coloque o nick certo.(LEMBRE-SE DE USAR # PARA SEPARAR O RIOT ID.)"
         region = ""
         region = "%s" %region_entry.get()
         apikey = ""#Sua api key :https://developer.riotgames.com/
