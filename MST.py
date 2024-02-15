@@ -6,7 +6,7 @@ import webbrowser
 
 janela = customtkinter.CTk()
 janela.title("Mastery Search Tool - MST, @Rifuzada")
-janela.geometry("450x370")
+janela.geometry("448x270")
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
 
@@ -15,6 +15,40 @@ customtkinter.set_default_color_theme("blue")
 def open_url(url):
    webbrowser.open_new_tab(url)
 
+def openNewWindow():
+    newWindow = customtkinter.CTkToplevel(janela)
+    newWindow.title("caracteres especiais")
+    newWindow.geometry("290x130")
+    newWindow.resizable(False,False)
+    botao1 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="е",fg_color="#51087E",border_width=1,  command= lambda:set_text("е"))
+    botao1.place(x=68,y=0)
+
+    botao2 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="а",fg_color="#51087E",border_width=1 , command= lambda:set_text("а"))
+    botao2.place(x=83,y=0)
+
+    botao3 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="с",fg_color="#51087E", border_width=1 , command= lambda:set_text("с"))
+    botao3.place(x=98,y=0)
+
+    botao4 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="г",fg_color="#51087E",border_width=1 ,  command= lambda:set_text("г"))
+    botao4.place(x=114,y=0)
+
+    botao5 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="р",fg_color="#51087E",border_width=1 ,  command= lambda:set_text("р"))
+    botao5.place(x=125,y=0)
+
+    botao6 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="о",fg_color="#51087E",border_width=1 ,  command= lambda:set_text("о"))
+    botao6.place(x=140,y=0)
+
+    botao7 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="в",fg_color="#51087E",border_width=1 ,  command= lambda:set_text("в"))
+    botao7.place(x=155,y=0)
+
+    botao8 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="н",fg_color="#51087E",border_width=1 ,  command= lambda:set_text("н"))
+    botao8.place(x=170,y=0)
+
+    botao9 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="м",fg_color="#51087E",border_width=1 ,  command= lambda:set_text("м"))
+    botao9.place(x=185,y=0)
+
+    botao10 = customtkinter.CTkButton(master=newWindow,width=4, height=2, text="т",fg_color="#51087E", border_width=1 , command= lambda:set_text("т"))
+    botao10.place(x=203,y=0)
 
 def region_check():
     b = str(region_entry.get())
@@ -39,7 +73,6 @@ def nick_check():
     a = a.lower()
     p = '#'
     if len(a) <= 16:
-        info["text"] = "Para pesquisar novamente feche a janela que acabou de abrir e pesquise novamente."
         try:
             if len(a) <= 1:
                 info['text'] = "Por favor selecione o nick antes de apertar o botao."
@@ -52,20 +85,16 @@ def nick_check():
         
 def pegar_id():
         nick = ""
-        nick = "%s" % nick_entry.get()
+        nick = "%s" % nick_entry.get()#salva a info dada no label nick
         nick = nick.upper()
         nick = nick.replace('#', "/")
-        p = '/'
-        if p not in nick:
-            print("O nick escolhido está incorreto.")
-            info['text']= "O nick escolhido está incorreto.\nPor favor coloque o nick certo.(LEMBRE-SE DE USAR # PARA SEPARAR O RIOT ID.)"
         region = ""
-        region = "%s" %region_entry.get()
-        apikey = ""#Sua api key :https://developer.riotgames.com/
-        ids1 = requests.get(f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{nick}?api_key={apikey}")
-        ids1 = ids1.json()
-        puuid = ids1["puuid"]
-        mastery = requests.get(f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}?api_key={apikey}")
+        region = "%s" %region_entry.get()#salva a info dada no label region
+        apikey = ""#Api key usada pela riot: https://developer.riotgames.com/
+        ids1 = requests.get(f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{nick}?api_key={apikey}")#request para conseguir os ids
+        ids1 = ids1.json()#transforma o request no json que ele responde
+        puuid = ids1["puuid"]#puxa o id que precisa do request ids1
+        mastery = requests.get(f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}?api_key={apikey}")#request para puxar maestrias
         top_3 = mastery.json()
 
         region1 = str(region)
@@ -80,7 +109,7 @@ def pegar_id():
         a = a.replace("LA1","LAN")
         a = a.replace("Br1", "BR")
         l = a.replace("jp1", "JP")
-        
+        janela.geometry('370x150')
         def a():
             janela.geometry('310x300')
             try:
@@ -114,8 +143,6 @@ def pegar_id():
                     texto_orientacao["text"] = text1
                 button.destroy()
                 info['text']= '' 
-                nick_entry.grid_forget()
-                region_entry.grid_forget()
             except:
                 texto_maestrias["text"] = "O jogador pesquisado não possui todas as 3 maestrias..."
 
@@ -129,33 +156,44 @@ def pegar_id():
         button.place(relx=0.5, rely=0.5)
         button.grid(column=0, row=6)
         
-        region_entry.grid_forget()
-        nick_entry.grid_forget()
+        region_entry.destroy()
+        nick_entry.destroy()
         botao.destroy()
+        twitter.destroy()
+        botaoNovaJanela.destroy()
 
 
         texto_maestrias = Label(janela, text="",bg = "#242424",  fg="white")
         texto_maestrias.grid(column=0   , row=7)
         
 
+def set_text(text):
+    nick_entry.insert(100,text)
+    return
 
-region_entry = customtkinter.CTkEntry(janela,width=200, height=40, border_width=1, placeholder_text='Ex: br1, na1, kr, tr1, etc...', text_color='silver')
-region_entry.grid(row=6, column=0, padx=10, pady=10)
-nick_entry = customtkinter.CTkEntry(janela, width=430, height=40, border_width=1, placeholder_text="Riot#ID", text_color="silver")
-nick_entry.grid(row=0, column=0, padx=10, pady=10)
 
-botao = customtkinter.CTkButton(master=janela, text="Buscar Maestrias",fg_color="#51087E",  command=lambda: [nick_check(),region_check(), pegar_id()])
-botao.place(relx=0.5, rely=0.5)
-botao.grid(column=0, row=12)
+# Entry labels
+region_entry = customtkinter.CTkEntry(janela,width=200, height=40, border_width=1, placeholder_text='Ex: br1, na1, kr, tr1, etc...', text_color='silver',justify='center')
+region_entry.grid(row=3, column=0, padx=15, pady=5,columnspan=2, sticky=(W))
+region_entry.place(x=8,y=50)
+
+nick_entry = customtkinter.CTkEntry(janela, width=430, height=40, border_width=1, placeholder_text="Riot#ID", text_color="silver",justify='center')
+nick_entry.grid(row=0, column=0, padx=10, pady=10,columnspan=3,sticky=(N))
+nick_entry.place(x=8,y=0)
+#Buttons
+botaoNovaJanela = customtkinter.CTkButton(master=janela,width=100, height=20,border_width=3,border_color='#07060d', text="caracteres especiais",fg_color="#51087E",  command= lambda:openNewWindow())
+botaoNovaJanela.place(x=140, y=120)
+
+botao = customtkinter.CTkButton(master=janela, text="Buscar Maestrias",fg_color="#51087E",border_width=3,border_color='#07060d',  command=lambda: [nick_check(),region_check(), pegar_id()])
+botao.place(x=135,y=150)
 
 url= "https://twitter.com/rifuzada"
 twitter = Label(janela, text="by @Rifuzada",background="#242424", fg="#116530")
-twitter.grid(column=0, row=26)
+twitter.place(x=165,y=180)
 twitter.bind("<Button-1>", lambda e:open_url(url))
 
 info = Label(janela, text="",background="#242424", fg="#116530")
 info.grid(column=0, row=25)
-
 
 janela.mainloop()
 
