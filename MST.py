@@ -2,11 +2,9 @@ import requests
 from id_champ import get_champions_name
 from tkinter import *
 import customtkinter
-import webbrowser
 from chars import *
 
-def open_url(url):
-    webbrowser.open_new_tab(url)
+
 def voltar1():
     janela.geometry(f"440x240+{x}+{y}")
     buttonvoltar1.place_forget()
