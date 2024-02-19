@@ -7,21 +7,22 @@ from chars import *
 
 def open_url(url):
     webbrowser.open_new_tab(url)
-
+janela.geometry("440x240+500")
 def voltar1():
-    janela.geometry("448x270")
+    janela.geometry("440x240+500")
     buttonvoltar1.place_forget()
     region_entry.place(x=5, y=45 )
-    nick_entry.place(x=5, y=0)    
+    nick_entry.place(x=5, y=0)  
+    new_window.withdraw()  
     botaoNovaJanela.place(x=140, y=120)
     twitter.place(x=165, y=180)
-    info1['text'] = ""
+    info1.configure(text="")
     info1.place(x=0, y=0)
     botao.place(x=135, y=150)
     
 
 def voltar():
-    janela.geometry("448x270")
+    janela.geometry("440x240+500")
     buttonvoltar.place_forget()
     buttonvoltar1.place_forget()
     texto_orientacao.grid_forget()
@@ -101,7 +102,7 @@ def pegar_id():
     region1 = region
     for code, abbreviation in region_mapping.items():
         region1 = region1.replace(code, abbreviation)
-    janela.geometry('310x220')
+    janela.geometry('310x180')
     def display_masteries():
         buttonvoltar.configure(state="normal")
         janela.geometry('360x240')
@@ -153,7 +154,6 @@ botao.place(x=135, y=150)
 
 buttonvoltar = customtkinter.CTkButton(master=janela,fg_color="#51087E", text="Voltar", command=voltar)
 buttonvoltar1 = customtkinter.CTkButton(master=janela,fg_color="#51087E", text="Voltar", command=voltar1)
-
 
 
 janela.mainloop()
