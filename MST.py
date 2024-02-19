@@ -7,13 +7,11 @@ from chars import *
 
 def open_url(url):
     webbrowser.open_new_tab(url)
-janela.geometry("440x240+500")
 def voltar1():
-    janela.geometry("440x240+500")
+    janela.geometry(f"440x240+{x}+{y}")
     buttonvoltar1.place_forget()
     region_entry.place(x=5, y=45 )
-    nick_entry.place(x=5, y=0)  
-    new_window.withdraw()  
+    nick_entry.place(x=5, y=0)    
     botaoNovaJanela.place(x=140, y=120)
     twitter.place(x=165, y=180)
     info1.configure(text="")
@@ -22,7 +20,7 @@ def voltar1():
     
 
 def voltar():
-    janela.geometry("440x240+500")
+    janela.geometry(f"440x240+{x}+{y}")
     buttonvoltar.place_forget()
     buttonvoltar1.place_forget()
     texto_orientacao.grid_forget()
@@ -79,13 +77,13 @@ def pegar_id():
     nick = nick.replace('#', "/")
     region = ""
     region = "%s" %region_entry.get()#salva a info dada no label region
-    apikey = ""#Api key usada pela riot: https://developer.riotgames.com/
+    apikey = "RGAPI-7c344e50-87fc-4a4b-9ac0-fb6db835fa51"#Api key usada pela riot: https://developer.riotgames.com/
     ids1 = requests.get(f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{nick}?api_key={apikey}")#request para conseguir os ids
     ids1 = ids1.json()#transforma o request no json que ele responde
     puuid = ids1["puuid"]#puxa o id que precisa do request ids1
     mastery = requests.get(f"https://{region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{puuid}?api_key={apikey}")#request para puxar maestrias
     top_3 = mastery.json()
-    twitter.place(x=105, y=120)
+    twitter.place(x=125, y=120)
     region_mapping = {
         "br1": "BR",
         "kr": "KR",
@@ -102,7 +100,7 @@ def pegar_id():
     region1 = region
     for code, abbreviation in region_mapping.items():
         region1 = region1.replace(code, abbreviation)
-    janela.geometry('310x180')
+    janela.geometry('350x180')
     def display_masteries():
         buttonvoltar.configure(state="normal")
         janela.geometry('360x240')
