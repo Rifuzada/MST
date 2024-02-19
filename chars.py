@@ -4,7 +4,7 @@ import tkinter as tk
 def open_new_window():
     new_window = customtkinter.CTkToplevel(janela)
     new_window.title("Caracteres especiais - MST")
-    new_window.geometry("290x130+490+0")
+    new_window.geometry(f"290x130+{x+443}+{y}")
     twitter1 = customtkinter.CTkLabel(new_window, text="by @Rifuzada",text_color="#116530",fg_color=("#116530", "#242424"),corner_radius=8)
     twitter1.place(x=85, y=100)
     new_window.resizable(False, False)
@@ -16,15 +16,22 @@ def open_new_window():
 
     for i, char in enumerate(chars):
 
-        customtkinter.CTkButton(master=new_window, width=4, height=2, text=char, fg_color="#51087E", border_width=1, command=lambda ch=char: set_text(ch)).place(x=68 + 15 * (i % 10), y=25 * (i // 10))
+        customtkinter.CTkButton(master=new_window, width=4, height=2, text=char,border_color='#07060d', fg_color="#51087E", border_width=4, command=lambda ch=char: set_text(ch)).place(x=48 + 20 * (i % 10), y=25 * (i // 10))
 
 
 def set_text(text):
-   nick_entry.insert(tk.END, text)
+   nick_entry.insert(tk.ANCHOR, text)
+
+
+
 
 janela = customtkinter.CTk()
 janela.title("Mastery Search Tool - MST, @Rifuzada")
-janela.geometry("440x240+500")
+largura_tela = janela.winfo_screenwidth()
+altura_tela = janela.winfo_screenheight()
+x = (largura_tela - 440) // 2
+y = (altura_tela - 240) // 2
+janela.geometry(f"440x240+{x}+{y}")
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
 janela.resizable(False, False)
