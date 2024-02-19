@@ -75,7 +75,7 @@ def pegar_id():
     nick = nick.replace('#', "/")
     region = ""
     region = "%s" %region_entry.get()#salva a info dada no label region
-    apikey = "RGAPI-7c344e50-87fc-4a4b-9ac0-fb6db835fa51"#Api key usada pela riot: https://developer.riotgames.com/
+    apikey = ""#Api key usada pela riot: https://developer.riotgames.com/
     ids1 = requests.get(f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{nick}?api_key={apikey}")#request para conseguir os ids
     ids1 = ids1.json()#transforma o request no json que ele responde
     puuid = ids1["puuid"]#puxa o id que precisa do request ids1
