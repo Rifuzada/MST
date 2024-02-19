@@ -8,7 +8,11 @@ def open_new_window():
     twitter1 = customtkinter.CTkLabel(new_window, text="by @Rifuzada",text_color="#116530",fg_color=("#116530", "#242424"),corner_radius=8)
     twitter1.place(x=85, y=100)
     new_window.resizable(False, False)
-    chars = ["е", "а", "с", "г", "р", "о", "в", "н", "м", "т", "я", "ш", "у", "и", "п", "л", "г", "ф", "д", "ж"]
+    chars = [
+    'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м',
+    'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ',
+    'ы', 'ь', 'э', 'ю', 'я'
+            ]
 
     for i, char in enumerate(chars):
 
