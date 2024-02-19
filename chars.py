@@ -1,5 +1,7 @@
 import customtkinter
 import tkinter as tk
+import webbrowser
+
 
 def open_new_window():
     new_window = customtkinter.CTkToplevel(janela)
@@ -23,10 +25,13 @@ def set_text(text):
    nick_entry.insert(tk.ANCHOR, text)
 
 
+def open_url(url):
+    webbrowser.open_new_tab(url)
 
 
 janela = customtkinter.CTk()
 janela.title("Mastery Search Tool - MST, @Rifuzada")
+janela.iconbitmap('C:\\Users\\Usuario\\Desktop\\Projects\\MST\\m7.ico')
 largura_tela = janela.winfo_screenwidth()
 altura_tela = janela.winfo_screenheight()
 x = (largura_tela - 440) // 2
@@ -50,7 +55,7 @@ botaoNovaJanela.place(x=140, y=120)
 # Labels
 url = "https://twitter.com/rifuzada"
 
-twitter = customtkinter.CTkLabel(janela, text="by @Rifuzada",text_color="#116530",fg_color=("#116530", "#242424"),corner_radius=8)
+twitter = customtkinter.CTkLabel(janela, text="by @Rifuzada",cursor= "hand2",text_color="#116530",fg_color=("#116530", "#242424"),corner_radius=8)
 twitter.place(x=165, y=180)
 twitter.bind("<Button-1>", lambda e: open_url(url))
 
