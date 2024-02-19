@@ -1,9 +1,12 @@
 import customtkinter
+import tkinter as tk
 
 def open_new_window():
     new_window = customtkinter.CTkToplevel(janela)
-    new_window.title("caracteres especiais")
-    new_window.geometry("290x130")
+    new_window.title("Caracteres especiais - MST")
+    new_window.geometry("290x130+490+0")
+    twitter1 = customtkinter.CTkLabel(new_window, text="by @Rifuzada",text_color="#116530",fg_color=("#116530", "#242424"),corner_radius=8)
+    twitter1.place(x=85, y=100)
     new_window.resizable(False, False)
     chars = ["е", "а", "с", "г", "р", "о", "в", "н", "м", "т", "я", "ш", "у", "и", "п", "л", "г", "ф", "д", "ж"]
 
@@ -13,14 +16,14 @@ def open_new_window():
 
 
 def set_text(text):
-   nick_entry.insert(END, text)
+   nick_entry.insert(tk.END, text)
 
 janela = customtkinter.CTk()
 janela.title("Mastery Search Tool - MST, @Rifuzada")
-janela.geometry("440x270")
+janela.geometry("440x240+500")
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
-
+janela.resizable(False, False)
 
 # Entry labels
 region_entry = customtkinter.CTkEntry(janela, width=200, height=40, border_width=1, placeholder_text='Ex: br1, na1, kr, tr1, etc...', text_color='silver', justify='center')
@@ -42,3 +45,4 @@ twitter.bind("<Button-1>", lambda e: open_url(url))
 
 info1 = customtkinter.CTkLabel(janela, text="", fg_color=("#116530", "#242424"), text_color="#116530")
 info1.place(x=0, y=0)
+
