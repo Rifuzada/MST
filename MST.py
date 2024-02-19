@@ -3,22 +3,37 @@ from id_champ import get_champions_name
 from tkinter import *
 import customtkinter
 import webbrowser
+from chars import *
 
 def open_url(url):
     webbrowser.open_new_tab(url)
 
+def voltar1():
+    janela.geometry("448x270")
+    buttonvoltar1.place_forget()
+    region_entry.place(x=5, y=45 )
+    nick_entry.place(x=5, y=0)    
+    botaoNovaJanela.place(x=140, y=120)
+    twitter.place(x=165, y=180)
+    info1['text'] = ""
+    info1.place(x=0, y=0)
+    botao.place(x=135, y=150)
+    
 
-def open_new_window():
-    new_window = customtkinter.CTkToplevel(janela)
-    new_window.title("caracteres especiais")
-    new_window.geometry("290x130")
-    new_window.resizable(False, False)
-    chars = ["е", "а", "с", "г", "р", "о", "в", "н", "м", "т", "я", "ш", "у", "и", "п", "л", "г", "ф", "д", "ж"]
-
-    for i, char in enumerate(chars):
-
-        customtkinter.CTkButton(master=new_window, width=4, height=2, text=char, fg_color="#51087E", border_width=1, command=lambda ch=char: set_text(ch)).place(x=68 + 15 * (i % 10), y=25 * (i // 10))
-
+def voltar():
+    janela.geometry("448x270")
+    buttonvoltar.place_forget()
+    buttonvoltar1.place_forget()
+    texto_orientacao.grid_forget()
+    regiao.grid_forget()
+    texto_maestrias.grid_forget()
+    buttonvoltar.place_forget()
+    region_entry.place(x=5, y=45)
+    nick_entry.place(x=5, y=0)
+    botaoNovaJanela.place(x=140, y=120)
+    twitter.place(x=165, y=180)
+    info1.place(x=0, y=0)
+    botao.place(x=135, y=150)
 
 def region_check():
     global region
@@ -31,7 +46,6 @@ def region_check():
         info1.configure(text = "A região escolhida está incorreta.\nPor favor coloque a região certa.")
         buttonvoltar1.place(x=0, y=180)
     
-
 def nick_check():
     global nick
 
@@ -44,7 +58,6 @@ def nick_check():
 
         buttonvoltar1.place(x=0, y=180)
 
-
 def pegar_id():
     global button
     global regiao
@@ -54,8 +67,8 @@ def pegar_id():
 
     buttonvoltar.configure(state="disabled")
     buttonvoltar.place_forget()
-    region_entry.grid_forget()
-    nick_entry.grid_forget()
+    region_entry.place_forget()
+    nick_entry.place_forget()
     botao.place_forget()
     botaoNovaJanela.place_forget()
 
@@ -126,7 +139,6 @@ def pegar_id():
     regiao = customtkinter.CTkLabel(janela, text="A Região selecionada é {0}".format(region1), fg_color=("white", "#242424"),corner_radius=8)
     regiao.grid(column=0,row=5)
     button = customtkinter.CTkButton(master=janela,fg_color="#51087E", text="Exibir", command=display_masteries)
-    #button.place(relx=0.5, rely=0.5)
     button.grid(column=0, row=6)
 
 
@@ -134,69 +146,14 @@ def pegar_id():
     texto_maestrias = customtkinter.CTkLabel(janela, text="", fg_color=("white", "#242424"), justify="left",corner_radius=8)
     texto_maestrias.grid(column=0   , row=7)
 
-def voltar1():
-    janela.geometry("448x270")
-    buttonvoltar1.place_forget()
-    region_entry.grid(row=3, column=0, padx=15, pady=5, columnspan=2, sticky=(W))
-    nick_entry.grid(row=0, column=0, padx=10, pady=10, columnspan=3, sticky=(N))
-    botaoNovaJanela.place(x=140, y=120)
-    twitter.place(x=165, y=180)
-    info1['text'] = ""
-    info1.place(x=0, y=0)
-    botao.place(x=135, y=150)
-    
-
-def voltar():
-    janela.geometry("448x270")
-    buttonvoltar.place_forget()
-    buttonvoltar1.place_forget()
-    texto_orientacao.grid_forget()
-    regiao.grid_forget()
-    texto_maestrias.grid_forget()
-    buttonvoltar.place_forget()
-    region_entry.grid(row=3, column=0, padx=15, pady=5, columnspan=2, sticky=(W))
-    nick_entry.grid(row=0, column=0, padx=10, pady=10, columnspan=3, sticky=(N))
-    botaoNovaJanela.place(x=140, y=120)
-    twitter.place(x=165, y=180)
-    info1.place(x=0, y=0)
-    botao.place(x=135, y=150)
-
-
-def set_text(text):
-    nick_entry.insert(END, text)
-
-janela = customtkinter.CTk()
-janela.title("Mastery Search Tool - MST, @Rifuzada")
-janela.geometry("448x270")
-customtkinter.set_appearance_mode("dark")
-customtkinter.set_default_color_theme("blue")
 
 janela.bind('<Return>', lambda event: [nick_check(), region_check(), pegar_id()])
-
-# Entry labels
-region_entry = customtkinter.CTkEntry(janela, width=200, height=40, border_width=1, placeholder_text='Ex: br1, na1, kr, tr1, etc...', text_color='silver', justify='center')
-region_entry.grid(row=3, column=0, padx=15, pady=5, columnspan=2, sticky=(W))
-
-nick_entry = customtkinter.CTkEntry(janela, width=430, height=40, border_width=1, placeholder_text="Riot#ID", text_color="silver", justify='center')
-nick_entry.grid(row=0, column=0, padx=10, pady=10, columnspan=3, sticky=(N))
-
-# Buttons
-botaoNovaJanela = customtkinter.CTkButton(master=janela, width=100, height=20, border_width=3, border_color='#07060d', text="caracteres especiais", fg_color="#51087E", command=open_new_window)
-botaoNovaJanela.place(x=140, y=120)
+botao = customtkinter.CTkButton(master=janela, text="Buscar Maestrias", fg_color="#51087E", border_width=3, border_color='#07060d', command=lambda: [nick_check(), region_check(),pegar_id()])
+botao.place(x=135, y=150)
 
 buttonvoltar = customtkinter.CTkButton(master=janela,fg_color="#51087E", text="Voltar", command=voltar)
 buttonvoltar1 = customtkinter.CTkButton(master=janela,fg_color="#51087E", text="Voltar", command=voltar1)
 
-botao = customtkinter.CTkButton(master=janela, text="Buscar Maestrias", fg_color="#51087E", border_width=3, border_color='#07060d', command=lambda: [nick_check(), region_check(),pegar_id()])
-botao.place(x=135, y=150)
 
-url = "https://twitter.com/rifuzada"
-twitter = customtkinter.CTkLabel(janela, text="by @Rifuzada",text_color="#116530",fg_color=("#116530", "#242424"),corner_radius=8)
-twitter.place(x=165, y=180)
-twitter.bind("<Button-1>", lambda e: open_url(url))
-
-
-info1 = customtkinter.CTkLabel(janela, text="", fg_color=("#116530", "#242424"), text_color="#116530")
-info1.place(x=0, y=0)
 
 janela.mainloop()
