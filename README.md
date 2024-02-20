@@ -7,7 +7,7 @@
 https://developer.riotgames.com 🚀<br />
 
 # - PREVIEW(TALVEZ NÃO ATUALIZADO)
-![MST Preview](https://github.com/Rifuzada/MST/assets/84077010/c86d85d4-e081-4495-8e4a-5665130f1314)<br />
+![coisafeia](https://github.com/Rifuzada/MST/assets/84077010/8e3b3489-916e-4534-867f-e57488bb7563)<br />
 ![CharsPreview](https://github.com/Rifuzada/MST/assets/84077010/fb8bc513-e5d6-4fdb-9af8-eb7e7d293c31)<br />
 ![MasteryPreview](https://github.com/Rifuzada/MST/assets/84077010/075f5290-4b8d-409b-9ebf-fefcdb0fc847)<br />
 ![coisafeia](https://github.com/Rifuzada/MST/assets/84077010/9c3205e5-ba58-498c-ba08-80688cb4efd2)
