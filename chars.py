@@ -1,7 +1,7 @@
 import customtkinter
 import tkinter as tk
 import webbrowser
-
+import os, sys
 
 def open_new_window():
     new_window = customtkinter.CTkToplevel(janela)
@@ -28,10 +28,20 @@ def set_text(text):
 def open_url(url):
     webbrowser.open_new_tab(url)
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        #PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 janela = customtkinter.CTk()
 janela.title("Mastery Search Tool - MST, @Rifuzada")
-janela.iconbitmap('C:\\Users\\Usuario\\Desktop\\Projects\\MST\\m7.ico')
+iconpath = resource_path('m7.ico')
+janela.iconbitmap(iconpath)
 largura_tela = janela.winfo_screenwidth()
 altura_tela = janela.winfo_screenheight()
 x = (largura_tela - 440) // 2
