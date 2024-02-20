@@ -71,4 +71,3 @@ twitter.bind("<Button-1>", lambda e: open_url(url))
 
 info1 = customtkinter.CTkLabel(janela, text="", fg_color=("#116530", "#242424"), text_color="#116530")
 info1.place(x=0, y=0)
-
