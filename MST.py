@@ -10,7 +10,7 @@ import io
 def voltar1():
     janela.geometry(f"440x240+{x}+{y}")
     buttonvoltar1.place_forget()
-    region_entry.place(x=5, y=45 )
+    region_combobox.place(x=5, y=45 )
     nick_entry.place(x=5, y=0)    
     botaoNovaJanela.place(x=140, y=120)
     twitter.place(x=165, y=180)
@@ -29,23 +29,12 @@ def voltar():
     regiao.place_forget()
     texto_maestrias.place_forget()
     buttonvoltar.place_forget()
-    region_entry.place(x=5, y=45)
+    region_combobox.place(x=5, y=45)
     nick_entry.place(x=5, y=0)
     botaoNovaJanela.place(x=140, y=120)
     twitter.place(x=165, y=180)
     info1.place(x=0, y=0)
     botao.place(x=135, y=150)
-
-def region_check():
-    global region
-
-    region = region_entry.get().strip()
-    if len(region) == 0 or len(region) > 3:
-        info1.configure(text = "A região escolhida está incorreta.\nPor favor coloque a região certa.")
-        buttonvoltar1.place(x=0, y=180)
-    elif len(region) == 1:
-        info1.configure(text = "A região escolhida está incorreta.\nPor favor coloque a região certa.")
-        buttonvoltar1.place(x=0, y=180)
     
 def nick_check():
     global nick
@@ -69,7 +58,7 @@ def pegar_id():
     global image_labels
     buttonvoltar.configure(state="disabled")
     buttonvoltar.place_forget()
-    region_entry.place_forget()
+    region_combobox.place_forget()
     nick_entry.place_forget()
     botao.place_forget()
     botaoNovaJanela.place_forget()
@@ -79,7 +68,7 @@ def pegar_id():
     nick = nick.upper()
     nick = nick.replace('#', "/")
     region = ""
-    region = "%s" %region_entry.get()#salva a info dada no label region
+    region = "%s" %region_combobox.get()#salva a info dada no label region
     apikey = ""#Api key usada pela riot: https://developer.riotgames.com/
     ids1 = requests.get(f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{nick}?api_key={apikey}")#request para conseguir os ids
     ids1 = ids1.json()#transforma o request no json que ele responde
@@ -182,7 +171,7 @@ def pegar_id():
 
 
 janela.bind('<Return>', lambda event: [nick_check(), region_check(), pegar_id()])
-botao = customtkinter.CTkButton(master=janela, text="Buscar Maestrias", fg_color="#51087E", border_width=3, border_color='#07060d', command=lambda: [nick_check(), region_check(),pegar_id()])
+botao = customtkinter.CTkButton(master=janela, text="Buscar Maestrias", fg_color="#51087E", border_width=3, border_color='#07060d', command=lambda: [nick_check(), pegar_id()])
 botao.place(x=135, y=150)
 
 buttonvoltar = customtkinter.CTkButton(master=janela,fg_color="#51087E", text="Voltar", command=voltar)
