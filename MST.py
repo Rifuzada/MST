@@ -3,6 +3,8 @@ from id_champ import get_champions_name
 from tkinter import *
 import customtkinter
 from chars import *
+from PIL import Image
+import io
 
 
 def voltar1():
@@ -21,9 +23,11 @@ def voltar():
     janela.geometry(f"440x240+{x}+{y}")
     buttonvoltar.place_forget()
     buttonvoltar1.place_forget()
-    texto_orientacao.grid_forget()
-    regiao.grid_forget()
-    texto_maestrias.grid_forget()
+    for label in image_labels:
+        label.place_forget()
+    texto_orientacao.place_forget()
+    regiao.place_forget()
+    texto_maestrias.place_forget()
     buttonvoltar.place_forget()
     region_entry.place(x=5, y=45)
     nick_entry.place(x=5, y=0)
@@ -61,7 +65,8 @@ def pegar_id():
     global texto_orientacao
     global texto_maestrias
     global buttonvoltar
-
+    global image_label
+    global image_labels
     buttonvoltar.configure(state="disabled")
     buttonvoltar.place_forget()
     region_entry.place_forget()
@@ -100,48 +105,80 @@ def pegar_id():
         region1 = region1.replace(code, abbreviation)
     janela.geometry('350x180')
     def display_masteries():
+        global image_label
+        global image_labels
         buttonvoltar.configure(state="normal")
-        janela.geometry('360x240')
-        twitter.place(x=130, y=210)
+        janela.geometry('420x240')
+        twitter.place(x=150, y=210)
+        texto_orientacao.configure(font=("Arial", 13)) 
+        texto_orientacao.place(x=5, y=0)
         try:
             # Get mastery information
             mastery_info = []
-            for i in range(min(3, len(top_3))):  # Ensure we don't exceed the length of top_3
+            champions = []
+            images = []  # Collect all the images
+
+            # Iterate over the top 3 masteries
+            for i in range(min(3, len(top_3))): 
                 mastery = top_3[i]
                 champion_id = mastery["championId"]
                 level = mastery["championLevel"]
                 points = mastery["championPoints"]
                 chest_granted = "Sim" if mastery["chestGranted"] else "Não"
                 mastery_info.append((champion_id, level, points, chest_granted))
+                champions.append(champion_id)
+
+            # Iterate over champions to fetch their images
+            for champion_id in champions:
+                # Construct the URL for the champion icon
+                url = f"https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/{champion_id}.png"
                 
+                # Send a GET request to the URL
+                response = requests.get(url)
+
+                if response.status_code == 200:
+                    # Convert the content to an image
+                    image_bytes = response.content
+                    image = Image.open(io.BytesIO(image_bytes))
+                    images.append(image)  # Collect the image
+
+            # Display the images
+            image_labels = []
+            for idx, image in enumerate(images):
+                champion_image = customtkinter.CTkImage(light_image=image, size=(30,30))
+                image_label = customtkinter.CTkLabel(janela, image=champion_image, text="")
+                image_label.place(x=360, y=40 + idx * 50)  # Adjust the y-coordinate for each image
+                image_labels.append(image_label)
             # Build text for display
             text1 = f"O perfil pesquisado foi: {ids1['gameName']}#{ids1['tagLine']}\n"
             text2 = ""
             for info in mastery_info:
                 champion_name = get_champions_name(info[0])
-                text2 += f"Sua maestria com {champion_name} é de nível {info[1]} com {info[2]:_} pontos.\nJá ganhou baú? {info[3]}\n"
+                text2 += f"Sua maestria com {champion_name} é de nível {info[1]} com {info[2]:_} pontos.\nJá ganhou baú? {info[3]}\n\n"
             text2 = text2.replace("_", '.')
             texto_orientacao["text"] = text1
             texto_maestrias.configure(text=text2)
-            texto_maestrias.grid()
-            buttonvoltar.place(x=0, y=160)
-            button.grid_forget()
+            texto_maestrias.place(x=5,y=50)
+            regiao.place(x=120,y=20)
+            buttonvoltar.place(x=5, y=180)
+            buttonvoltar.lift()
+            button.place_forget()
             info1['text'] = ''
         except (KeyError, IndexError) as e:
             texto_maestrias["text"] = "O jogador pesquisado não possui todas as 3 maestrias..."
 
     texto_orientacao = customtkinter.CTkLabel(janela, text=f"Clique no botão abaixo para exibir as maestrias de {ids1['gameName']}#{ids1['tagLine']}", font=("Arial", 10), fg_color=("white", "#242424"),corner_radius=8) 
-    texto_orientacao.grid(column=0, row=4)
+    texto_orientacao.place(x=10, y=0)
 
     regiao = customtkinter.CTkLabel(janela, text="A Região selecionada é {0}".format(region1), fg_color=("white", "#242424"),corner_radius=8)
-    regiao.grid(column=0,row=5)
+    regiao.place(x=90,y=40)
     button = customtkinter.CTkButton(master=janela,fg_color="#51087E", text="Exibir", command=display_masteries)
-    button.grid(column=0, row=6)
+    button.place(x=100, y=70)
 
 
 
     texto_maestrias = customtkinter.CTkLabel(janela, text="", fg_color=("white", "#242424"), justify="left",corner_radius=8)
-    texto_maestrias.grid(column=0   , row=7)
+    texto_maestrias.place(x=9999   , y=7)
 
 
 janela.bind('<Return>', lambda event: [nick_check(), region_check(), pegar_id()])
