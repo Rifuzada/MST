@@ -39,7 +39,7 @@ def open_new_window():
 
     for i, char in enumerate(chars):
 
-        customtkinter.CTkButton(master=new_window, width=4, height=2, text=char,border_color='#07060d', fg_color="#51087E", border_width=4, command=lambda ch=char: set_text(ch)).place(x=48 + 20 * (i % 10), y=25 * (i // 10))
+        customtkinter.CTkButton(master=new_window, width=4, height=2, text=char,border_color='#07060d', fg_color="#51087E",corner_radius=20, border_width=2, command=lambda ch=char: set_text(ch)).place(x=48 + 20 * (i % 10), y=25 * (i // 10))
 
 def combobox_callback(choice):
     region = choice
@@ -59,7 +59,11 @@ janela.resizable(False, False)
 
 
 # Entry labels
-region_combobox = customtkinter.CTkComboBox(janela, values=["br1",  
+combobox_var = customtkinter.StringVar(value="Region")
+region_combobox = customtkinter.CTkComboBox(janela,
+    text_color="silver",
+    #text="Region",
+    values=["br1",  
     "kr",
     "tr1",
     "la2",
@@ -70,14 +74,20 @@ region_combobox = customtkinter.CTkComboBox(janela, values=["br1",
     "jp1"
     ],
     corner_radius=5,
+    variable=combobox_var,
     command=combobox_callback,
     state= "readonly",
     hover= True)
 #region_entry = customtkinter.CTkEntry(janela, width=200, height=40, border_width=1, placeholder_text='Ex: br1, na1, kr, tr1, etc...', text_color='silver', justify='center')
-region_combobox.place(x=5, y=45 )
+region_label = customtkinter.CTkLabel(janela,text = "Region",text_color="silver",  height=10,font=("Bahnschrift", 11))
+region_label.place(x=8, y=58)
+region_combobox.place(x=5, y=75)
+
+nick_label = customtkinter.CTkLabel(janela,text = "Riot ID",text_color="silver", height=10,font=("Bahnschrift", 11))
+nick_label.place(x=8, y=0)
 
 nick_entry = customtkinter.CTkEntry(janela, width=430, height=40, border_width=1, placeholder_text="Riot#ID", text_color="silver", justify='center')
-nick_entry.place(x=5, y=0)
+nick_entry.place(x=5, y=15)
 
 # Botoes
 botaoNovaJanela = customtkinter.CTkButton(master=janela, width=100, height=20, border_width=3, border_color='#07060d', text="caracteres especiais", fg_color="#51087E", command=open_new_window)
@@ -87,7 +97,7 @@ botaoNovaJanela.place(x=140, y=120)
 # Labels
 url = "https://twitter.com/rifuzada"
 
-twitter = customtkinter.CTkLabel(janela, text="by @Rifuzada",cursor= "hand2",text_color="#116530",fg_color=("#116530", "#242424"),corner_radius=8)
+twitter = customtkinter.CTkLabel(janela, text="by @Rifuzada",cursor= "hand2",text_color="#116530",corner_radius=8)
 twitter.place(x=165, y=180)
 twitter.bind("<Button-1>", lambda e: open_url(url))
 
